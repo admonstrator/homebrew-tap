@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lagerregal — admonstrator&#39;s Homebrew Tap</title>
+<meta name="description" content="lagerregal: classify and browse your installed Homebrew packages by category — a CLI and TUI for macOS and Linux.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍺</text></svg>">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a class="brand" href="/">🍺 admonstrator/tap</a>
+      <div class="nav-links">
+        <a href="#install">Install</a>
+        <a href="#features">Features</a>
+        <a href="https://github.com/admonstrator/homebrew-lagerregal" target="_blank" rel="noopener">Source ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <p class="eyebrow">lagerregal <span aria-hidden="true">·</span> German for &ldquo;storage shelf&rdquo;</p>
+      <h1>Every package<br><span class="tint">in its place.</span></h1>
+      <p class="lede">A CLI and TUI that classifies and browses your installed Homebrew packages by category — so you finally know what all that stuff is.</p>
+      <div class="cta">
+        <a class="button" href="#install">Install</a>
+        <a class="quiet" href="https://github.com/admonstrator/homebrew-lagerregal" target="_blank" rel="noopener">View source</a>
+      </div>
+    </div>
+
+    <section>
+      <div class="terminal">
+        <div class="bar"><span></span><span></span><span></span></div>
+        <pre><span class="prompt">$</span> lagerregal categories
+<span class="out">┌─────────────────────────┬──────────┐
+│ Category                │ Packages │
+├─────────────────────────┼──────────┤
+│ Development Tools       │       14 │
+│ Networking              │        6 │
+│ Security                │        4 │
+│ Monitoring              │        3 │
+│ Media &amp; Graphics        │        3 │
+│ DNS                     │        1 │
+└─────────────────────────┴──────────┘</span>
+
+<span class="prompt">$</span> lagerregal  <span class="comment"># no arguments launches the interactive TUI</span></pre>
+      </div>
+    </section>
+
+    <section id="features">
+      <h2>What it does</h2>
+      <p class="section-lede">Homebrew tells you <em>what's</em> installed. lagerregal tells you what it all <em>is</em> — and helps you keep it tidy.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="icon">🗂️</div>
+          <h3>Automatic categories</h3>
+          <p><code>scan</code> classifies every installed package — Development Tools, Networking, Security, Monitoring and many more — with no setup.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🖥️</div>
+          <h3>Interactive TUI</h3>
+          <p>Run <code>lagerregal</code> with no arguments for a full dashboard: browse by category, inspect packages, act on them — all from the keyboard.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🧹</div>
+          <h3>Housekeeping</h3>
+          <p><code>outdated</code>, <code>unmaintained</code> and <code>orphans</code> surface what needs an upgrade, what Homebrew has deprecated, and what nothing depends on anymore.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📝</div>
+          <h3>Notes &amp; overrides</h3>
+          <p>Attach a personal note to any package with <code>note</code>, or override its category with <code>category</code> when you know better than the classifier.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📸</div>
+          <h3>Snapshots</h3>
+          <p><code>snapshot</code> saves your installed packages and versions, and compares them later — see exactly what changed between two points in time.</p>
+        </div>
+        <div class="card">
+          <div class="icon">⚡</div>
+          <h3>Fast by default</h3>
+          <p>Results are cached locally and invalidated automatically when packages change, so everyday commands are instant. <code>--refresh</code> forces a re-read.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="install">
+      <h2>Install</h2>
+      <p class="section-lede">Via this tap, for macOS and Linux on Apple&nbsp;Silicon, Intel and ARM. Prebuilt binaries — nothing compiles on your machine.</p>
+      <div class="terminal">
+        <div class="bar"><span></span><span></span><span></span></div>
+        <button class="copy-btn" onclick="copyInstall(this)">Copy</button>
+        <pre><span class="prompt">$</span> brew tap admonstrator/tap
+<span class="prompt">$</span> brew trust admonstrator/tap
+<span class="prompt">$</span> brew install lagerregal</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>MIT licensed · built by <a href="https://admon.me" target="_blank" rel="noopener">admonstrator</a></span>
+      <a href="https://github.com/admonstrator/homebrew-lagerregal">Source on GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    function copyInstall(btn) {
+      const text = "brew tap admonstrator/tap\nbrew trust admonstrator/tap\nbrew install lagerregal";
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = "Copied";
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>
