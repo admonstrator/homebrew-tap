@@ -11,6 +11,9 @@
     --fg: #1c1a17;
     --muted: #6b6459;
     --accent: #b5651d;
+    --accent-2: #2f7d6b;
+    --accent-3: #a8447a;
+    --accent-4: #3568b0;
     --card: #ffffff;
     --border: #e7e2da;
     --code-bg: #232019;
@@ -22,6 +25,9 @@
       --fg: #ede8e0;
       --muted: #a49a8a;
       --accent: #e0954f;
+      --accent-2: #57bfa4;
+      --accent-3: #dd7fb2;
+      --accent-4: #7aa6e5;
       --card: #211e1a;
       --border: #34302a;
       --code-bg: #0f0d0b;
@@ -30,10 +36,12 @@
   }
   :root[data-theme="dark"] {
     --bg: #171512; --fg: #ede8e0; --muted: #a49a8a; --accent: #e0954f;
+    --accent-2: #57bfa4; --accent-3: #dd7fb2; --accent-4: #7aa6e5;
     --card: #211e1a; --border: #34302a; --code-bg: #0f0d0b; --code-fg: #f2ede4;
   }
   :root[data-theme="light"] {
     --bg: #fbfaf8; --fg: #1c1a17; --muted: #6b6459; --accent: #b5651d;
+    --accent-2: #2f7d6b; --accent-3: #a8447a; --accent-4: #3568b0;
     --card: #ffffff; --border: #e7e2da; --code-bg: #232019; --code-fg: #f2ede4;
   }
 
@@ -61,18 +69,22 @@
   }
   .mark .dot {
     width: 0.55rem; height: 0.55rem; border-radius: 50%;
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-3));
     flex: none;
   }
   h1 {
     font-size: 2.1rem;
     margin: 0 0 0.6rem;
     letter-spacing: -0.01em;
+    background: linear-gradient(100deg, var(--accent), var(--accent-3) 60%, var(--accent-4));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .lede {
     color: var(--muted);
     font-size: 1.05rem;
-    max-width: 46ch;
+    max-width: 50ch;
     margin: 0;
   }
 
@@ -84,7 +96,7 @@
     padding: 1.1rem 1.2rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 0.92rem;
-    margin: 2rem 0 2.5rem;
+    margin: 2rem 0 0.75rem;
     overflow-x: auto;
   }
   .install div + div { margin-top: 0.3rem; }
@@ -102,6 +114,18 @@
     font-family: inherit;
   }
   .copy-btn:hover { background: #2c2820; color: var(--code-fg); }
+  .install-note {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0 0 2.5rem;
+  }
+  .install-note code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.05rem 0.35rem;
+  }
 
   h2 {
     font-size: 0.85rem;
@@ -110,10 +134,42 @@
     color: var(--muted);
     margin: 0 0 1rem;
   }
+
+  .explainer {
+    display: grid;
+    gap: 0.9rem;
+    margin: 0 0 3rem;
+  }
+  .explainer li {
+    list-style: none;
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+  .explainer .num {
+    flex: none;
+    width: 1.6rem; height: 1.6rem;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .explainer li:nth-child(1) .num { background: var(--accent); }
+  .explainer li:nth-child(2) .num { background: var(--accent-2); }
+  .explainer li:nth-child(3) .num { background: var(--accent-3); }
+  .explainer p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .explainer strong { color: var(--fg); }
+
   .formulae { list-style: none; margin: 0 0 3rem; padding: 0; display: grid; gap: 0.75rem; }
   .formulae li {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-2);
     border-radius: 10px;
     padding: 1rem 1.2rem;
   }
@@ -130,6 +186,38 @@
     color: var(--muted);
     font-size: 0.92rem;
   }
+
+  .about {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.3rem;
+    margin: 0 0 3rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .about p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    flex: 1 1 30ch;
+  }
+  .about a.button {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: linear-gradient(100deg, var(--accent-4), var(--accent-3));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+  }
+  .about a.button:hover { filter: brightness(1.08); }
 
   footer {
     border-top: 1px solid var(--border);
@@ -154,9 +242,27 @@
 
   <div class="install">
     <div><span class="prompt">$</span> brew tap admonstrator/tap</div>
+    <div><span class="prompt">$</span> brew trust admonstrator/tap</div>
     <div><span class="prompt">$</span> brew install lagerregal</div>
     <button class="copy-btn" onclick="copyInstall(this)">Copy</button>
   </div>
+  <p class="install-note">The <code>trust</code> step tells Homebrew you're okay loading formulae from this non-official tap — do it once, right after tapping.</p>
+
+  <h2>How it works</h2>
+  <ul class="explainer">
+    <li>
+      <span class="num">1</span>
+      <p><strong>Tap it.</strong> <code>brew tap admonstrator/tap</code> adds this repository as a source of formulae, alongside Homebrew's official ones.</p>
+    </li>
+    <li>
+      <span class="num">2</span>
+      <p><strong>Trust it.</strong> Since this isn't an official Homebrew tap, <code>brew trust</code> is your explicit go-ahead to load formulae from it.</p>
+    </li>
+    <li>
+      <span class="num">3</span>
+      <p><strong>Install and stay updated.</strong> Each formula's real source lives in its own repository; releases there regenerate the recipe here automatically, so <code>brew upgrade</code> just works.</p>
+    </li>
+  </ul>
 
   <h2>Formulae</h2>
   <ul class="formulae">
@@ -166,6 +272,13 @@
     </li>
   </ul>
 
+  <div class="about">
+    <p>Built and maintained by <strong>admonstrator</strong>. More projects, source code, and issues live on GitHub.</p>
+    <a class="button" href="https://admon.me" target="_blank" rel="noopener">
+      GitHub ↗
+    </a>
+  </div>
+
   <footer>
     <span>MIT licensed</span>
     <a href="https://github.com/admonstrator/homebrew-tap">Source on GitHub</a>
@@ -173,7 +286,7 @@
 
   <script>
     function copyInstall(btn) {
-      const text = "brew tap admonstrator/tap\nbrew install lagerregal";
+      const text = "brew tap admonstrator/tap\nbrew trust admonstrator/tap\nbrew install lagerregal";
       navigator.clipboard.writeText(text).then(() => {
         const original = btn.textContent;
         btn.textContent = "Copied";

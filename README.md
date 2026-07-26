@@ -6,6 +6,7 @@
 
 ```sh
 brew tap admonstrator/tap
+brew trust admonstrator/tap
 brew install <formula>
 ```
 
