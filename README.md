@@ -20,7 +20,9 @@ brew install admonstrator/tap/<formula>
 
 | Formula | Description |
 |---|---|
-| [`lagerregal`](https://github.com/admonstrator/homebrew-lagerregal) | Classify and browse your installed Homebrew packages by category |
+| [`lagerregal`](https://github.com/admonstrator/homebrew-lagerregal) | Classify, search and manage your installed Homebrew packages by category — a fast CLI and TUI with notes, snapshots and housekeeping views |
+
+[![The lagerregal TUI: category sidebar, package list and details pane](site/assets/lagerregal/tui-main.webp)](https://brew.admon.me/lagerregal/)
 
 Each formula's actual source lives in its own repository; the generated `Formula/*.rb` files here are what `brew` reads. Formulae are regenerated automatically by each project's release workflow — don't hand-edit them, changes will be overwritten on the next release.
 

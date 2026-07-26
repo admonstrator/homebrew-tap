@@ -197,6 +197,29 @@ h2 {
 }
 .copy-btn:hover { background: rgba(255, 255, 255, 0.08); color: var(--code-fg); }
 
+/* ---- Screenshots ---- */
+.shot { margin: 0 0 2.5rem; }
+.shot:last-child { margin-bottom: 0; }
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+.shot figcaption {
+  color: var(--muted);
+  font-size: 0.88rem;
+  max-width: 70ch;
+  margin: 0.8rem auto 0;
+  text-align: center;
+}
+.shot figcaption code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+.hero-shot { margin: 0; }
+
 /* ---- Cards ---- */
 .grid {
   display: grid;
