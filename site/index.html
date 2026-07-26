@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>admonstrator&#39;s Homebrew Tap</title>
+<meta name="description" content="A personal Homebrew tap: CLI tools and apps by admonstrator, installable via brew.">
+<style>
+  :root {
+    --bg: #fbfaf8;
+    --fg: #1c1a17;
+    --muted: #6b6459;
+    --accent: #b5651d;
+    --card: #ffffff;
+    --border: #e7e2da;
+    --code-bg: #232019;
+    --code-fg: #f2ede4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171512;
+      --fg: #ede8e0;
+      --muted: #a49a8a;
+      --accent: #e0954f;
+      --card: #211e1a;
+      --border: #34302a;
+      --code-bg: #0f0d0b;
+      --code-fg: #f2ede4;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #171512; --fg: #ede8e0; --muted: #a49a8a; --accent: #e0954f;
+    --card: #211e1a; --border: #34302a; --code-bg: #0f0d0b; --code-fg: #f2ede4;
+  }
+  :root[data-theme="light"] {
+    --bg: #fbfaf8; --fg: #1c1a17; --muted: #6b6459; --accent: #b5651d;
+    --card: #ffffff; --border: #e7e2da; --code-bg: #232019; --code-fg: #f2ede4;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 3rem;
+    line-height: 1.55;
+  }
+  header { margin-bottom: 3rem; }
+  .mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 1.1rem;
+  }
+  .mark .dot {
+    width: 0.55rem; height: 0.55rem; border-radius: 50%;
+    background: var(--accent);
+    flex: none;
+  }
+  h1 {
+    font-size: 2.1rem;
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .lede {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  .install {
+    position: relative;
+    background: var(--code-bg);
+    color: var(--code-fg);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.92rem;
+    margin: 2rem 0 2.5rem;
+    overflow-x: auto;
+  }
+  .install div + div { margin-top: 0.3rem; }
+  .install .prompt { color: #8a8378; user-select: none; }
+  .copy-btn {
+    position: absolute;
+    top: 0.6rem; right: 0.6rem;
+    background: transparent;
+    color: #b8b1a3;
+    border: 1px solid #3d382f;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .copy-btn:hover { background: #2c2820; color: var(--code-fg); }
+
+  h2 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+  .formulae { list-style: none; margin: 0 0 3rem; padding: 0; display: grid; gap: 0.75rem; }
+  .formulae li {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+  }
+  .formulae a {
+    color: var(--fg);
+    font-weight: 600;
+    text-decoration: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.98rem;
+  }
+  .formulae a:hover { color: var(--accent); }
+  .formulae p {
+    margin: 0.35rem 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  footer a { color: var(--muted); }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+  <header>
+    <div class="mark"><span class="dot"></span> admonstrator / homebrew-tap</div>
+    <h1>A small Homebrew tap</h1>
+    <p class="lede">CLI tools and apps I've built, packaged for <a href="https://brew.sh">Homebrew</a> and kept in one place.</p>
+  </header>
+
+  <div class="install">
+    <div><span class="prompt">$</span> brew tap admonstrator/tap</div>
+    <div><span class="prompt">$</span> brew install lagerregal</div>
+    <button class="copy-btn" onclick="copyInstall(this)">Copy</button>
+  </div>
+
+  <h2>Formulae</h2>
+  <ul class="formulae">
+    <li>
+      <a href="https://github.com/admonstrator/homebrew-lagerregal">lagerregal</a>
+      <p>Classify and browse your installed Homebrew packages by category — a CLI and TUI for macOS and Linux.</p>
+    </li>
+  </ul>
+
+  <footer>
+    <span>MIT licensed</span>
+    <a href="https://github.com/admonstrator/homebrew-tap">Source on GitHub</a>
+  </footer>
+
+  <script>
+    function copyInstall(btn) {
+      const text = "brew tap admonstrator/tap\nbrew install lagerregal";
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = "Copied";
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>
