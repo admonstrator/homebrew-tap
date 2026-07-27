@@ -39,7 +39,7 @@
         <button class="copy-btn" onclick="copyInstall(this)">Copy</button>
         <pre><span class="prompt">$</span> brew tap admonstrator/tap
 <span class="prompt">$</span> brew trust admonstrator/tap
-<span class="prompt">$</span> brew install lagerregal manta</pre>
+<span class="prompt">$</span> brew install lagerregal mantaray</pre>
       </div>
     </section>
 
@@ -73,8 +73,8 @@
           <p>Classify, search and manage your installed Homebrew packages by category — a fast CLI and TUI for macOS and Linux, with notes, snapshots and housekeeping views.</p>
           <span class="more">Learn more →</span>
         </a>
-        <a class="tile" href="/manta/">
-          <span class="name">manta</span>
+        <a class="tile" href="/mantaray/">
+          <span class="name">mantaray</span>
           <p>A TUI network topology mapper — listens to STP, LLDP and CDP, enriches over SNMP, and draws your switches, links and their warts live in the terminal. Doctor, traffic and what-if included.</p>
           <span class="more">Learn more →</span>
         </a>
@@ -91,7 +91,7 @@
 
   <script>
     function copyInstall(btn) {
-      const text = "brew tap admonstrator/tap\nbrew trust admonstrator/tap\nbrew install lagerregal";
+      const text = "brew tap admonstrator/tap\nbrew trust admonstrator/tap\nbrew install lagerregal mantaray";
       navigator.clipboard.writeText(text).then(() => {
         const original = btn.textContent;
         btn.textContent = "Copied";
