@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>manta — admonstrator&#39;s Homebrew Tap</title>
+<meta name="description" content="manta: a TUI network topology mapper — reads STP/RSTP/MSTP/PVST+, LLDP and CDP passively, enriches the picture over SNMP, and draws your switches, links and their warts live in the terminal.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍺</text></svg>">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  /* Manta swims in colder water than the rest of the tap. */
+  .hero h1 .tint { background: linear-gradient(95deg, #38d0e5, #3b82f6 55%, #8b5cf6); -webkit-background-clip: text; background-clip: text; }
+  .hero .eyebrow .wave { color: #38b6d8; }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a class="brand" href="/">🍺 admonstrator/tap</a>
+      <div class="nav-links">
+        <a href="#install">Install</a>
+        <a href="#features">Features</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="https://github.com/admonstrator/homebrew-tap/releases" target="_blank" rel="noopener">Releases ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <p class="eyebrow">manta <span class="wave" aria-hidden="true">≋</span> gliding silently over your spanning trees</p>
+      <h1>Watch your network<br><span class="tint">breathe.</span></h1>
+      <p class="lede">A TUI network topology mapper: manta listens to STP, LLDP and CDP on the wire, fills in the blanks over SNMP, and draws your switches, links and their warts — live, in your terminal.</p>
+      <div class="cta">
+        <a class="button" href="#install">Install</a>
+        <a class="quiet" href="https://github.com/admonstrator/homebrew-tap/releases" target="_blank" rel="noopener">Download binaries</a>
+      </div>
+    </div>
+
+    <section>
+      <figure class="shot hero-shot">
+        <img src="/assets/manta/map.png" alt="The manta topology map: seven switches drawn as a spanning tree with box-drawing links, the root bridge reef-core highlighted at the top, activity dots on the busy uplinks and the toolbar offering paint modes, radial layout and what-if simulation" width="2086" height="1036">
+      </figure>
+    </section>
+
+    <section id="features">
+      <h2>What it does</h2>
+      <p class="section-lede">Switches know exactly how your network hangs together. manta gets it out of them — without configuring, changing or stressing anything.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="icon">🫧</div>
+          <h3>Passive by design</h3>
+          <p>Reads STP/RSTP/MSTP and PVST+ BPDUs, LLDP and CDP straight off the wire. Strictly read-only: no SETs, no BPDUs of its own, no seat at the spanning-tree table.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🗺️</div>
+          <h3>A live map</h3>
+          <p>Box-drawing topology with utilisation-weighted links, paint modes (<code>m</code>) for health, utilisation, VLAN and vendor, a radial layout (<code>r</code>), drag-to-pin nodes — full mouse support throughout.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🔌</div>
+          <h3>SNMP enrichment</h3>
+          <p>v1, v2c and v3: port tables, speeds, VLANs, MAC/FDB tables and LLDP neighbours complete the picture that frames alone can&#39;t show — auto-discovered from the traffic it hears.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🩺</div>
+          <h3>The doctor</h3>
+          <p>Duplex, MTU and native-VLAN mismatches, half-duplex uplinks, error storms, legacy STP, roots in the wrong place — every finding scored into a 0–100 health figure with a fix hint.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📈</div>
+          <h3>Traffic</h3>
+          <p>An aggregate braille throughput chart, top talkers with per-port trends, and a per-switch front panel where hot or error-spewing ports light up.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🧪</div>
+          <h3>What-if</h3>
+          <p>Fail a switch, cut a link or change a bridge priority (<code>W</code>) and watch how the spanning tree would re-converge — before you touch the real thing.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📡</div>
+          <h3>Rogue radar</h3>
+          <p>Unexpected DHCP servers and IPv6 router advertisements, MAC moves between ports and duplicate IPs surface as events the moment they appear on the wire.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📄</div>
+          <h3>Reports &amp; exports</h3>
+          <p>A self-contained HTML report, SVG/DOT/Mermaid/CSV exports, sessions that save and load as JSON, and pcap import for replaying captures — no root required.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🤖</div>
+          <h3>Headless mode</h3>
+          <p><code>--headless</code> captures for a while, scores the network and writes the report — perfect for a jump host or a scheduled health check.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenshots">
+      <h2>A closer look</h2>
+      <p class="section-lede">Real screens from a live capture — one colour language everywhere: green is fine, amber is worth a look, red is tonight&#39;s problem.</p>
+      <figure class="shot">
+        <img src="/assets/manta/traffic.png" alt="The traffic screen: a full-width braille area chart of aggregate ingress peaking at 14.3 Gbit/s, above a top-talker table with per-port in/out rates, coloured utilisation bars, an error-rate column and small trend charts" loading="lazy" width="2086" height="980">
+        <figcaption>The traffic screen: aggregate throughput, top talkers and per-port trends — all from SNMP counters, none of it guesswork.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/assets/manta/doctor.png" alt="The doctor screen: a health gauge reading 49 of 100 labelled choppy waters, with critical findings for a duplex mismatch and a native VLAN mismatch plus warnings for an MTU mismatch, a 100 Mbit uplink and an error-spewing port" loading="lazy" width="2086" height="924">
+        <figcaption>The doctor names the culprit, the port and the fix — and condenses it all into one health score.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/assets/manta/splash.png" alt="The manta splash screen: a block-glyph MANTA wordmark above animated ASCII waves, with a little manta ray gliding through the air mid-breach" loading="lazy" width="2086" height="1204">
+        <figcaption>The intro: a manta breaches, glides over the waves and dives back in. Any key skips it — but why would you.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Also a plain CLI</h2>
+      <p class="section-lede">No TTY, no problem — headless runs capture, diagnose and report on their own.</p>
+      <div class="terminal">
+        <div class="bar"><span></span><span></span><span></span></div>
+        <pre><span class="prompt">$</span> manta --headless --duration 300 --report office.html
+<span class="out">manta: headless capture for 300s …
+manta: 7 switch(es), 7 link(s), 182 endpoint(s) — health 86/100, 0 critical finding(s)
+manta: report → office.html</span>
+
+<span class="prompt">$</span> manta --replay yesterday.pcap  <span class="comment"># replay a capture — no privileges needed</span></pre>
+      </div>
+    </section>
+
+    <section id="install">
+      <h2>Install</h2>
+      <p class="section-lede">Via this tap for macOS on Apple&nbsp;Silicon and Linux on x86_64 and arm64. Prebuilt binaries — nothing compiles on your machine.</p>
+      <div class="terminal">
+        <div class="bar"><span></span><span></span><span></span></div>
+        <button class="copy-btn" onclick="copyInstall(this)">Copy</button>
+        <pre><span class="prompt">$</span> brew tap admonstrator/tap
+<span class="prompt">$</span> brew trust admonstrator/tap
+<span class="prompt">$</span> brew install manta</pre>
+      </div>
+      <div class="grid" style="margin-top:1rem">
+        <div class="card">
+          <div class="icon">🪟</div>
+          <h3>Windows</h3>
+          <p>Grab the <code>x86_64-pc-windows-msvc</code> zip from the <a href="https://github.com/admonstrator/homebrew-tap/releases" target="_blank" rel="noopener">releases page</a>. Live capture needs <a href="https://npcap.com" target="_blank" rel="noopener">Npcap</a> installed separately — manta doesn&#39;t bundle it.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🔑</div>
+          <h3>Capture privileges</h3>
+          <p>Listening on an interface needs raw-socket rights: <code>sudo</code> (or ChmodBPF) on macOS, <code>setcap cap_net_raw,cap_net_admin=eip</code> on Linux. Replays, sessions and reports run fully unprivileged.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🔭</div>
+          <h3>See more, passively</h3>
+          <p>On a SPAN/mirror port or a TAP, manta sees per-VLAN BPDUs and far more traffic — the honest way to widen the view without ever transmitting.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>MIT licensed · built by <a href="https://admon.me" target="_blank" rel="noopener">admonstrator</a></span>
+      <a href="https://github.com/admonstrator/homebrew-tap">Source on GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    function copyInstall(btn) {
+      const text = "brew tap admonstrator/tap\nbrew trust admonstrator/tap\nbrew install manta";
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = "Copied";
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>
