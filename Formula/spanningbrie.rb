@@ -2,24 +2,24 @@
 class Spanningbrie < Formula
   desc "TUI network topology mapper for spanning-tree (STP/RSTP/MSTP/PVST+) networks"
   homepage "https://github.com/admonstrator/homebrew-spanningbrie"
-  version "0.3.0"
+  version "0.4.0"
 
   on_macos do
     on_arm do
-      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.3.0/spanningbrie-v0.3.0-aarch64-apple-darwin.tar.gz"
-      sha256 "13b5241da1850adea22150f97bc96fed99f930002ac7af67865fa401fda8c4be"
+      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.4.0/spanningbrie-v0.4.0-aarch64-apple-darwin.tar.gz"
+      sha256 "29273a8e378b8cb983bca6a631cf73e5423ac8fc59493866b02444269389d8ce"
     end
   end
 
   on_linux do
     depends_on "libpcap"
     on_intel do
-      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.3.0/spanningbrie-v0.3.0-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "9f6faaa25e08d18302e3de6a87ab8cc112978b54074a260386925857007e0142"
+      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.4.0/spanningbrie-v0.4.0-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "b77f68b023be0e19e7b127dea4eeaebf167a70f64702bb3a30d304896a0720ca"
     end
     on_arm do
-      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.3.0/spanningbrie-v0.3.0-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "682e98591806ccebc4fc69a6a84d838f50bc906ad7e73550f9959a53f180860f"
+      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.4.0/spanningbrie-v0.4.0-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "ee3db3f9b84a387a7c7558cd0693914aaea47d79fac1ff292d919d90658fbaaa"
     end
   end
 
