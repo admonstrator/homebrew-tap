@@ -11,6 +11,85 @@
   /* Mantaray swims in colder water than the rest of the tap. */
   .hero h1 .tint { background: linear-gradient(95deg, #38d0e5, #3b82f6 55%, #8b5cf6); -webkit-background-clip: text; background-clip: text; }
   .hero .eyebrow .wave { color: #38b6d8; }
+
+  /* ---- The reef: ASCII switches trading packets under a data surface,
+         the splash-screen manta breaching through it once per pass ---- */
+  .reef { margin: 0.5rem 0 0; }
+  .reef svg { display: block; width: 100%; height: auto; }
+  .reef text {
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "DejaVu Sans Mono", Consolas, monospace;
+    white-space: pre;
+    user-select: none;
+  }
+  .reef .sw-frame { fill: var(--muted); opacity: 0.65; }
+  .reef .led { fill: #34d399; }
+  .reef .led.cy { fill: #38d0e5; }
+  .reef .led.dim { fill: var(--muted); opacity: 0.35; }
+  .reef .led.blink { animation: led-blink 1.6s steps(2, jump-none) infinite; }
+  .reef .led.blink.b2 { animation-duration: 2.3s; animation-delay: 0.4s; }
+  .reef .led.blink.b3 { animation-duration: 1.1s; animation-delay: 0.9s; }
+  @keyframes led-blink { 50% { opacity: 0.25; } }
+
+  /* Dotted terminal-style links (round caps + zero dash = dot columns). */
+  .reef .link { fill: none; stroke: var(--muted); stroke-opacity: 0.5; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 0.1 9; }
+  .reef .link.blocked { stroke-dasharray: 5 7; stroke-width: 1.3; stroke-opacity: 0.35; }
+  .reef .blocked-mark { fill: var(--muted); opacity: 0.6; font-size: 11px; }
+
+  .reef .pkt {
+    offset-rotate: 0deg;
+    font-size: 10px;
+    animation: pkt-run 4.2s linear infinite;
+    filter: drop-shadow(0 0 3px currentColor);
+  }
+  .reef .pkt.rev { animation-name: pkt-run-rev; }
+  @keyframes pkt-run     { from { offset-distance: 0%; }   to { offset-distance: 100%; } }
+  @keyframes pkt-run-rev { from { offset-distance: 100%; } to { offset-distance: 0%; } }
+
+  /* The data surface: two wave rows in the splash screen's glyphs, packets
+     glinting in them, flicked between two frames like a real terminal. */
+  .water { font-size: 12px; }
+  .water .wave-main { fill: #38b6d8; opacity: 0.8; }
+  .water .wave-dim { fill: var(--muted); opacity: 0.4; }
+  .water .w-a { animation: frame-a 1.2s steps(1) infinite; }
+  .water .w-b { animation: frame-b 1.2s steps(1) infinite; }
+
+  /* The breach: x runs linearly, y follows a parabola through the surface;
+     the clip on the group ends it at the waterline. */
+  .manta-x { animation: manta-cross 12s linear infinite; }
+  .breach { animation: breach-y 12s ease-in-out infinite; }
+  .manta { font-size: 14px; }
+  /* The splash screen's two sprite frames, swapped like the real wingbeat. */
+  .manta .f-up   { animation: frame-a 0.9s steps(1) infinite; }
+  .manta .f-down { animation: frame-b 0.9s steps(1) infinite; }
+  @keyframes frame-a { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  @keyframes frame-b { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+  @keyframes manta-cross {
+    from { transform: translateX(-210px); }
+    to   { transform: translateX(1190px); }
+  }
+  @keyframes breach-y {
+    0%, 15%   { transform: translateY(0); }
+    36%       { transform: translateY(-88px); }
+    50%       { transform: translateY(-96px); }
+    64%       { transform: translateY(-88px); }
+    85%, 100% { transform: translateY(0); }
+  }
+  /* Bubbles where the manta went under, rising to the surface once per pass. */
+  .bubble { fill: #38b6d8; font-size: 11px; opacity: 0; animation: bubble-rise 12s linear infinite; }
+  @keyframes bubble-rise {
+    0%, 78%   { opacity: 0; transform: translateY(0); }
+    80%       { opacity: 0.8; }
+    92%, 100% { opacity: 0; transform: translateY(-24px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reef .pkt, .reef .led.blink, .manta .f-up, .manta .f-down,
+    .manta-x, .breach, .water .w-a, .water .w-b, .bubble { animation: none; }
+    /* Parked mid-breach (wings up) instead of under water. */
+    .manta-x { transform: translateX(430px); }
+    .breach { transform: translateY(-92px); }
+    .manta .f-down, .water .w-b { opacity: 0; }
+  }
 </style>
 </head>
 <body>
@@ -37,9 +116,103 @@
       </div>
     </div>
 
+    <!-- The data surface: ASCII switches trading packets on the seafloor,
+         wave rows of glyphs above them, and the splash-screen manta
+         breaching through the surface once per pass. -->
+    <div class="reef" aria-hidden="true">
+      <svg viewBox="0 0 980 250" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="mantaTint" x1="-92" y1="0" x2="92" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#38d0e5"/>
+            <stop offset="0.55" stop-color="#3b82f6"/>
+            <stop offset="1" stop-color="#8b5cf6"/>
+          </linearGradient>
+          <clipPath id="aboveWater"><rect x="-20" y="-20" width="1020" height="121"/></clipPath>
+        </defs>
+
+        <!-- Inter-switch links: three active dotted arcs, one blocked reserve path. -->
+        <path class="link" d="M 180 205 C 230 168, 250 168, 300 205"/>
+        <path class="link" d="M 420 205 C 470 168, 490 168, 540 205"/>
+        <path class="link" d="M 660 205 C 710 168, 730 168, 780 205"/>
+        <path class="link blocked" d="M 140 198 C 340 138, 700 138, 860 198"/>
+        <text class="blocked-mark" x="505" y="147" text-anchor="middle">⊘ blocked</text>
+
+        <!-- Packets riding the active links. -->
+        <text class="pkt" text-anchor="middle" dominant-baseline="central" fill="#38d0e5" style="color:#38d0e5; offset-path: path('M 180 205 C 230 168, 250 168, 300 205');">▪</text>
+        <text class="pkt rev" text-anchor="middle" dominant-baseline="central" fill="#8b5cf6" style="color:#8b5cf6; offset-path: path('M 180 205 C 230 168, 250 168, 300 205'); animation-duration: 5.6s; animation-delay: 1.2s;">▪</text>
+        <text class="pkt" text-anchor="middle" dominant-baseline="central" fill="#3b82f6" style="color:#3b82f6; offset-path: path('M 420 205 C 470 168, 490 168, 540 205'); animation-duration: 3.6s; animation-delay: 0.6s;">▪</text>
+        <text class="pkt rev" text-anchor="middle" dominant-baseline="central" fill="#34d399" style="color:#34d399; offset-path: path('M 420 205 C 470 168, 490 168, 540 205'); animation-duration: 6.1s; animation-delay: 2.1s;">▪</text>
+        <text class="pkt" text-anchor="middle" dominant-baseline="central" fill="#8b5cf6" style="color:#8b5cf6; offset-path: path('M 660 205 C 710 168, 730 168, 780 205'); animation-duration: 4.8s; animation-delay: 0.3s;">▪</text>
+        <text class="pkt rev" text-anchor="middle" dominant-baseline="central" fill="#38d0e5" style="color:#38d0e5; offset-path: path('M 660 205 C 710 168, 730 168, 780 205'); animation-duration: 3.9s; animation-delay: 1.7s;">▪</text>
+
+        <!-- Four box-drawing switches, LEDs blinking out of phase. -->
+        <g class="switch" font-size="12">
+          <text class="sw-frame" x="120" y="200" text-anchor="middle" xml:space="preserve">┌─────────────┐</text>
+          <text x="120" y="213" text-anchor="middle" xml:space="preserve"><tspan class="sw-frame">│ </tspan><tspan class="led blink">▪</tspan><tspan> </tspan><tspan class="led cy blink b2">▪</tspan><tspan> </tspan><tspan class="led dim">▪</tspan><tspan> </tspan><tspan class="led blink b3">▪</tspan><tspan> </tspan><tspan class="led dim">▪</tspan><tspan> </tspan><tspan class="led cy">▪</tspan><tspan class="sw-frame"> │</tspan></text>
+          <text class="sw-frame" x="120" y="226" text-anchor="middle" xml:space="preserve">└─────────────┘</text>
+        </g>
+        <g class="switch" font-size="12">
+          <text class="sw-frame" x="360" y="200" text-anchor="middle" xml:space="preserve">┌─────────────┐</text>
+          <text x="360" y="213" text-anchor="middle" xml:space="preserve"><tspan class="sw-frame">│ </tspan><tspan class="led cy blink b3">▪</tspan><tspan> </tspan><tspan class="led blink">▪</tspan><tspan> </tspan><tspan class="led">▪</tspan><tspan> </tspan><tspan class="led dim">▪</tspan><tspan> </tspan><tspan class="led cy blink b2">▪</tspan><tspan> </tspan><tspan class="led dim">▪</tspan><tspan class="sw-frame"> │</tspan></text>
+          <text class="sw-frame" x="360" y="226" text-anchor="middle" xml:space="preserve">└─────────────┘</text>
+        </g>
+        <g class="switch" font-size="12">
+          <text class="sw-frame" x="600" y="200" text-anchor="middle" xml:space="preserve">┌─────────────┐</text>
+          <text x="600" y="213" text-anchor="middle" xml:space="preserve"><tspan class="sw-frame">│ </tspan><tspan class="led dim">▪</tspan><tspan> </tspan><tspan class="led blink b2">▪</tspan><tspan> </tspan><tspan class="led cy">▪</tspan><tspan> </tspan><tspan class="led blink">▪</tspan><tspan> </tspan><tspan class="led dim">▪</tspan><tspan> </tspan><tspan class="led blink b3">▪</tspan><tspan class="sw-frame"> │</tspan></text>
+          <text class="sw-frame" x="600" y="226" text-anchor="middle" xml:space="preserve">└─────────────┘</text>
+        </g>
+        <g class="switch" font-size="12">
+          <text class="sw-frame" x="840" y="200" text-anchor="middle" xml:space="preserve">┌─────────────┐</text>
+          <text x="840" y="213" text-anchor="middle" xml:space="preserve"><tspan class="sw-frame">│ </tspan><tspan class="led blink">▪</tspan><tspan> </tspan><tspan class="led dim">▪</tspan><tspan> </tspan><tspan class="led cy blink b2">▪</tspan><tspan> </tspan><tspan class="led dim">▪</tspan><tspan> </tspan><tspan class="led blink b3">▪</tspan><tspan> </tspan><tspan class="led">▪</tspan><tspan class="sw-frame"> │</tspan></text>
+          <text class="sw-frame" x="840" y="226" text-anchor="middle" xml:space="preserve">└─────────────┘</text>
+        </g>
+
+        <!-- The manta breaches through the surface: linear x, parabolic y,
+             clipped at the waterline, swapping the splash screen's two wing
+             frames as it flies. -->
+        <g clip-path="url(#aboveWater)">
+          <g class="manta-x">
+            <g transform="translate(0,150)">
+              <g class="breach">
+                <g class="manta" fill="url(#mantaTint)">
+                  <g class="f-up">
+                    <text x="-92" y="-34" xml:space="preserve">  \‾\__          __/‾/</text>
+                    <text x="-92" y="-17" xml:space="preserve">   \    \______/    /</text>
+                    <text x="-92" y="0" xml:space="preserve">~──«(  °            )»</text>
+                  </g>
+                  <g class="f-down">
+                    <text x="-92" y="0" xml:space="preserve">~──«(  °            )»</text>
+                    <text x="-92" y="17" xml:space="preserve">   /    /‾‾‾‾‾‾\    \</text>
+                    <text x="-92" y="34" xml:space="preserve">  /_/‾‾          ‾‾\_\</text>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+
+        <!-- The waterline: data glinting in the waves, two frames flicked
+             like the splash screen's sea. -->
+        <g class="water">
+          <g class="w-a">
+            <text class="wave-main" x="0" y="96" xml:space="preserve">≈ ~ ≋ · ~ ≈ ~ ≋ ~ · ≈ ~ <tspan fill="#38d0e5">▪</tspan> ≈ ~ ≋ · ~ ≈ ~ ≋ ~ · ≈ ~ <tspan fill="#8b5cf6">▪</tspan> ≈ ~ ≋ · ~ ≈ ~ ≋ ~ · ≈ ~ <tspan fill="#34d399">▪</tspan> ≈ ~ ≋ · ~ ≈ ~ ≋ ~ · ≈ ~ <tspan fill="#3b82f6">▪</tspan> ≈ ~ ≋ · ~ ≈ ~ ≋ ~ · ≈ ~ <tspan fill="#38d0e5">▪</tspan> ≈ ~ ≋ · ~ ≈ ~ ≋ ~ · ≈ ~ <tspan fill="#8b5cf6">▪</tspan> ≈ ~ ≋ · ~ ≈ ~</text>
+          </g>
+          <g class="w-b">
+            <text class="wave-main" x="0" y="96" xml:space="preserve">~ ≈ · ≋ ~ ~ ≈ · ≋ ~ ≈ ≋ <tspan fill="#3b82f6">▪</tspan> ~ ≈ · ≋ ~ ~ ≈ · ≋ ~ ≈ ≋ <tspan fill="#34d399">▪</tspan> ~ ≈ · ≋ ~ ~ ≈ · ≋ ~ ≈ ≋ <tspan fill="#38d0e5">▪</tspan> ~ ≈ · ≋ ~ ~ ≈ · ≋ ~ ≈ ≋ <tspan fill="#8b5cf6">▪</tspan> ~ ≈ · ≋ ~ ~ ≈ · ≋ ~ ≈ ≋ <tspan fill="#3b82f6">▪</tspan> ~ ≈ · ≋ ~ ~ ≈ · ≋ ~ ≈ ≋ <tspan fill="#38d0e5">▪</tspan> ~ ≈ · ≋ ~ ~ ≈</text>
+          </g>
+          <text class="wave-dim" x="0" y="110" xml:space="preserve">· ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ · · ~ ≈ · ~ ·</text>
+        </g>
+
+        <!-- Bubbles where the manta goes under, rising to the surface. -->
+        <text class="bubble" x="880" y="128" style="animation-delay: 0s;">°</text>
+        <text class="bubble" x="902" y="132" style="animation-delay: 0.35s;">°</text>
+        <text class="bubble" x="921" y="127" style="animation-delay: 0.7s;">°</text>
+      </svg>
+    </div>
+
     <section>
       <figure class="shot hero-shot">
-        <img src="/assets/mantaray/map.png" alt="The mantaray topology map: seven switches drawn as a spanning tree with box-drawing links, the root bridge reef-core highlighted at the top, activity dots on the busy uplinks and the toolbar offering paint modes, radial layout and what-if simulation" width="2086" height="1036">
+        <img src="/assets/mantaray/map.webp" alt="The mantaray topology map: seven switches drawn as a spanning tree with box-drawing links, the root bridge reef-core highlighted at the top, live activity dots on the busy uplinks, a dashed STP-blocked reserve link marked with a no-entry glyph, and doctor badges on the sore switches" width="1486" height="620">
       </figure>
     </section>
 
@@ -50,47 +223,62 @@
         <div class="card">
           <div class="icon">🫧</div>
           <h3>Passive by design</h3>
-          <p>Reads STP/RSTP/MSTP and PVST+ BPDUs, LLDP and CDP straight off the wire. Strictly read-only: no SETs, no BPDUs of its own, no seat at the spanning-tree table.</p>
+          <p>Reads STP/RSTP/MSTP and PVST+ BPDUs, LLDP, CDP, VTP, DTP, UDLD and LACP straight off the wire. Strictly read-only: no SETs, no BPDUs of its own, no seat at the spanning-tree table.</p>
         </div>
         <div class="card">
           <div class="icon">🗺️</div>
           <h3>A live map</h3>
-          <p>Box-drawing topology with utilisation-weighted links, paint modes (<code>m</code>) for health, utilisation, VLAN and vendor, a radial layout (<code>r</code>), drag-to-pin nodes — full mouse support throughout.</p>
+          <p>Utilisation-weighted links with live traffic animation, STP-blocked reserve paths drawn dashed with both ends named, paint modes (<code>m</code>) for health, utilisation, VLAN and vendor, a radial layout (<code>r</code>), drag-to-pin — full mouse support throughout.</p>
         </div>
         <div class="card">
-          <div class="icon">🔌</div>
-          <h3>SNMP enrichment</h3>
-          <p>v1, v2c and v3: port tables, speeds, VLANs, MAC/FDB tables and LLDP neighbours complete the picture that frames alone can&#39;t show — auto-discovered from the traffic it hears.</p>
+          <div class="icon">🧭</div>
+          <h3>Discover &amp; enrich</h3>
+          <p>One keypress sweeps a subnet with ARP/ICMP, then SNMP-probes every responder (v1, v2c, v3) — port tables, speeds, VLANs, FDB and LLDP neighbours fill the map in on their own.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🔎</div>
+          <h3>Fullscreen port view</h3>
+          <p><code>Enter</code> on a switch shows its ports laid out like the face of the device, above a table whose columns cycle (<code>v</code>) through basic, VLAN, STP, traffic and neighbour facts. <code>Enter</code> on a port jumps across the link into the neighbour&#39;s view.</p>
         </div>
         <div class="card">
           <div class="icon">🩺</div>
           <h3>The doctor</h3>
-          <p>Duplex, MTU and native-VLAN mismatches, half-duplex uplinks, error storms, legacy STP, roots in the wrong place — every finding scored into a 0–100 health figure with a fix hint.</p>
+          <p>Duplex, MTU and native-VLAN mismatches, error storms, broadcast storms, legacy STP islands, roots in the wrong place, portfast reminders — every finding scored into a 0–100 health figure with a fix hint.</p>
         </div>
         <div class="card">
           <div class="icon">📈</div>
           <h3>Traffic</h3>
-          <p>An aggregate braille throughput chart, top talkers with per-port trends, and a per-switch front panel where hot or error-spewing ports light up.</p>
+          <p>An aggregate braille throughput chart, top talkers with per-port trends, and a front panel that doubles as a heatmap — hot or error-spewing ports light up.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🌓</div>
+          <h3>Two temperaments</h3>
+          <p><code>M</code> flips discovery ↔ monitoring: discovery runs the active machinery and judges &ldquo;offline&rdquo; leniently; monitoring stops every sweep and instead pings known switches gently, alarming after N misses.</p>
         </div>
         <div class="card">
           <div class="icon">🧪</div>
           <h3>What-if</h3>
-          <p>Fail a switch, cut a link or change a bridge priority (<code>W</code>) and watch how the spanning tree would re-converge — before you touch the real thing.</p>
+          <p>Fail a switch, cut a link or change a bridge priority (<code>W</code>) and watch how the spanning tree would re-converge — entirely offline, before you touch the real thing.</p>
         </div>
         <div class="card">
           <div class="icon">📡</div>
           <h3>Rogue radar</h3>
-          <p>Unexpected DHCP servers and IPv6 router advertisements, MAC moves between ports and duplicate IPs surface as events the moment they appear on the wire.</p>
+          <p>Unexpected DHCP servers and IPv6 router advertisements, MAC flapping and duplicate IPs raise alarms; passive mDNS/SSDP/DHCP fingerprinting names endpoints and files them as printer, camera, phone …</p>
+        </div>
+        <div class="card">
+          <div class="icon">🕰️</div>
+          <h3>Timeline &amp; drift</h3>
+          <p>Scrub the session&#39;s history on a time axis (<code>H</code>), snapshot a baseline (<code>b</code>) and ask later what changed (<code>B</code>): new or lost switches and links, root moves, VLAN changes.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🚨</div>
+          <h3>Alert channels</h3>
+          <p>Every alarm can go out as RFC 5424 syslog over UDP and/or into a per-alarm shell hook that gets the event as JSON on stdin — <code>curl -d @-</code> turns that into any webhook.</p>
         </div>
         <div class="card">
           <div class="icon">📄</div>
           <h3>Reports &amp; exports</h3>
-          <p>A self-contained HTML report, SVG/DOT/Mermaid/CSV exports, sessions that save and load as JSON, and pcap import for replaying captures — no root required.</p>
-        </div>
-        <div class="card">
-          <div class="icon">🤖</div>
-          <h3>Headless mode</h3>
-          <p><code>--headless</code> captures for a while, scores the network and writes the report — perfect for a jump host or a scheduled health check.</p>
+          <p>A self-contained HTML report, SVG/DOT/Mermaid/CSV exports, versioned sessions that save and load, pcap replay — and a <code>--headless</code> mode that captures, scores and reports without a TTY.</p>
         </div>
       </div>
     </section>
@@ -99,15 +287,19 @@
       <h2>A closer look</h2>
       <p class="section-lede">Real screens from a live capture — one colour language everywhere: green is fine, amber is worth a look, red is tonight&#39;s problem.</p>
       <figure class="shot">
-        <img src="/assets/mantaray/traffic.png" alt="The traffic screen: a full-width braille area chart of aggregate ingress peaking at 14.3 Gbit/s, above a top-talker table with per-port in/out rates, coloured utilisation bars, an error-rate column and small trend charts" loading="lazy" width="2086" height="980">
+        <img src="/assets/mantaray/ports.webp" alt="The fullscreen port view of switch dist-south: twelve ports drawn as the device's front panel with up, down and selection colours, above a traffic table with per-port in/out rates, utilisation, a red error-rate cell and trend sparklines" loading="lazy" width="1486" height="600">
+        <figcaption>The fullscreen port view: the switch&#39;s face up top, cyclable fact columns below (<code>v</code>) — <code>Enter</code> follows a link straight into the neighbour&#39;s panel.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/assets/mantaray/traffic.webp" alt="The traffic screen: a full-width braille area chart of aggregate throughput, above a top-talker table with per-port in/out rates, coloured utilisation bars, an error-rate column and small trend charts" loading="lazy" width="1486" height="700">
         <figcaption>The traffic screen: aggregate throughput, top talkers and per-port trends — all from SNMP counters, none of it guesswork.</figcaption>
       </figure>
       <figure class="shot">
-        <img src="/assets/mantaray/doctor.png" alt="The doctor screen: a health gauge reading 49 of 100 labelled choppy waters, with critical findings for a duplex mismatch and a native VLAN mismatch plus warnings for an MTU mismatch, a 100 Mbit uplink and an error-spewing port" loading="lazy" width="2086" height="924">
+        <img src="/assets/mantaray/doctor.webp" alt="The doctor screen: a health gauge labelled choppy waters, with critical findings for a duplex mismatch and a native VLAN mismatch plus warnings for an MTU mismatch, a 100 Mbit uplink between gig-capable switches and an error-spewing port" loading="lazy" width="1486" height="660">
         <figcaption>The doctor names the culprit, the port and the fix — and condenses it all into one health score.</figcaption>
       </figure>
       <figure class="shot">
-        <img src="/assets/mantaray/splash.png" alt="The mantaray splash screen: a block-glyph MANTA wordmark above animated ASCII waves, with a little manta ray gliding through the air mid-breach" loading="lazy" width="2086" height="1204">
+        <img src="/assets/mantaray/splash.webp" alt="The mantaray splash screen: a block-glyph MANTARAY wordmark in a cyan-to-violet gradient above animated ASCII waves, with a little manta ray gliding through the air mid-breach" loading="lazy" width="1486" height="860">
         <figcaption>The intro: a manta breaches, glides over the waves and dives back in. Any key skips it — but why would you.</figcaption>
       </figure>
     </section>
