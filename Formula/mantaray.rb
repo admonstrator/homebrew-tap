@@ -2,24 +2,24 @@
 class Mantaray < Formula
   desc "TUI network topology mapper for spanning-tree (STP/RSTP/MSTP/PVST+) networks"
   homepage "https://github.com/admonstrator/mantaray"
-  version "0.8.1"
+  version "0.9.0"
 
   on_macos do
     on_arm do
-      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.8.1/mantaray-v0.8.1-aarch64-apple-darwin.tar.gz"
-      sha256 "646802bf229462602849b9a803fe79d9e8888b9085ebc34ea0e4cfc0b72b9afb"
+      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.9.0/mantaray-v0.9.0-aarch64-apple-darwin.tar.gz"
+      sha256 "013f3e90dd1dff93315c5f254f76b00c979190ba21ffded68ca2964a750ff11d"
     end
   end
 
   on_linux do
     depends_on "libpcap"
     on_intel do
-      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.8.1/mantaray-v0.8.1-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "08a1855a8e8b9a5207ecc64012e8e13f7a4bbca75cac644872150c65db197047"
+      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.9.0/mantaray-v0.9.0-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "1809b4aeb437257ce07a901ed523091b0227de859cf6ff88ad7888d37c424773"
     end
     on_arm do
-      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.8.1/mantaray-v0.8.1-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "548cc87511c8c0ce175a8be7aaa9509c32d01b73c877968af1a378eaa5e69195"
+      url "https://github.com/admonstrator/homebrew-tap/releases/download/v0.9.0/mantaray-v0.9.0-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "57213918f69d9a3910181a52d0537b0f38282961d3f7252de692286ca5ef0b99"
     end
   end
 
