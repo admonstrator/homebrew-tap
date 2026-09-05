@@ -3,28 +3,28 @@
 class Lagerregal < Formula
   desc "Classify and browse your installed Homebrew packages by category"
   homepage "https://github.com/admonstrator/homebrew-lagerregal"
-  version "0.5.0"
+  version "0.5.1"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/admonstrator/homebrew-lagerregal/releases/download/v0.5.0/lagerregal-0.5.0-aarch64-apple-darwin.tar.gz"
-      sha256 "abf2ef5e1558e16905db3adb29e959ae2965d9dc59a28bc53258f7b50038f61a"
+      url "https://github.com/admonstrator/homebrew-lagerregal/releases/download/v0.5.1/lagerregal-0.5.1-aarch64-apple-darwin.tar.gz"
+      sha256 "b0fbf4e62443994c2579e0c60de0de33a31b9173bd4e45c4166471c638081076"
     end
     on_intel do
-      url "https://github.com/admonstrator/homebrew-lagerregal/releases/download/v0.5.0/lagerregal-0.5.0-x86_64-apple-darwin.tar.gz"
-      sha256 "65f6680e8795d69ff19129d75cc9feb4f46af3b9b1461f3f657abbf42b5df92b"
+      url "https://github.com/admonstrator/homebrew-lagerregal/releases/download/v0.5.1/lagerregal-0.5.1-x86_64-apple-darwin.tar.gz"
+      sha256 "13aaa0ec59f5c041d62d37f9e4d75014616df513b01675ee9a9b7dcbb56fd424"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/admonstrator/homebrew-lagerregal/releases/download/v0.5.0/lagerregal-0.5.0-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "1778b18dec13ca60901d2b96f3bfbe66ca05d974b23dd8132034e2f4247ee651"
+      url "https://github.com/admonstrator/homebrew-lagerregal/releases/download/v0.5.1/lagerregal-0.5.1-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "ea80bc11d334d2adfe7d5377793d4099a82244204deb6dc2f4ba787e070467b7"
     end
     on_intel do
-      url "https://github.com/admonstrator/homebrew-lagerregal/releases/download/v0.5.0/lagerregal-0.5.0-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "2633ad73f9644c3eb424e6911f416c6d66c16a6a57ddc733f03d13ec4a1f33db"
+      url "https://github.com/admonstrator/homebrew-lagerregal/releases/download/v0.5.1/lagerregal-0.5.1-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "1c92b8df7844257dbecbcd902be7354a0ec935f172f0fc7eca9dbbd31909a727"
     end
   end
 
